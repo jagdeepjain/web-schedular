@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; ccharset=UTF-8" />
+<title>Add appointment to scheduler</title>
+
+
+<link rel="stylesheet"        href="../common/external/jquery-ui-1.10.4/jquery-ui-1.10.4.custom.min.css"/>
+<link rel="stylesheet"        href="../common/external/jquery-timepicker-addon/jquery-ui-timepicker-addon.css"/>
+<link rel="stylesheet"        href="../common/custom/form.scheduler.css"/>
+
+<script type="text/javascript" src="../common/external/jquery-1.11.0/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="../common/external/jquery-ui-1.10.4/jquery-ui-1.10.4.custom.min.js"></script>
+<script type="text/javascript" src="../common/external/jquery-timepicker-addon/jquery-ui-timepicker-addon.js"></script>
+
+<style type="text/css">
+#appForm {
+	width: 375px;
+}
+</style>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#start_date").datetimepicker({dateFormat: "yy-mm-dd", timeFormat: "HH:mm"});
+		$("#end_date").datetimepicker({dateFormat: "yy-mm-dd", timeFormat: "HH:mm"});
+	});
+</script>
+
+
+</head>
+
+<body>
+	<form id="appForm" method="post" action="model_InsertSchedule.php">
+		<fieldset class="ui-widget ui-widget-content ui-corner-all">
+			<legend class="ui-widget ui-widget-header ui-corner-all">Appointment Schedular</legend>
+			<p>
+				<label for="start_date">Start Date</label> 			
+				<input id="start_date" name="start_date" minlength="8" required type="text" /> 
+									
+				<label for="end_date">End Date</label> 
+				<input id="end_date" name="end_date" minlength="8" required type="text" /> 
+				
+				<label for="title">Title</label> 
+				<input id="title" name="title" minlength="2" required type="text" />
+				
+				<label for="title">Description</label> 
+				<input id="description" name="description" minlength="2" required type="text" />
+				
+				<label for="location">Location </label> <input id="location" name="location" minlength="2" required type="text" /> <label
+					for="all_day"><b>All Day?</b> </label> <select id="all_day" name="all_day" required>
+					<option value="1">Yes</option>
+					<option value="0" selected="selected">No</option>
+				</select>
+			</p>
+			<p>
+				<label for="submit"></label>
+				<button type="submit" class="submit" name="submit" id="submit">Submit</button>
+			</p>
+		</fieldset>
+	</form>
+</body>
+</html>

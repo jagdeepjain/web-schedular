@@ -1,0 +1,25 @@
+
+body {
+	font-size: 63.5%
+}
+
+label {
+	display: inline-block;
+	width: 175px;
+}
+
+legend {
+	padding: 0.5em;
+}
+
+fieldset lable {
+	display : block;
+}
+
+lable.error {
+	margin-left: 175px;	
+}
+
+label.submit {
+	margin-left: 175px;
+}

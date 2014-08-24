@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/json; charset=utf-8" />
+
+<title>Edit Schedule</title>
+
+<link rel="stylesheet"        href="../common/external/jquery-ui-1.10.4/jquery-ui-1.10.4.custom.min.css"/>
+<link rel="stylesheet"        href="../common/external/jquery-timepicker-addon/jquery-ui-timepicker-addon.css"/>
+<link rel="stylesheet"        href="../common/custom/form.scheduler.css"/>
+
+<script type="text/javascript" src="../common/external/jquery-1.11.0/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="../common/external/jquery-ui-1.10.4/jquery-ui-1.10.4.custom.min.js"></script>
+<script type="text/javascript" src="../common/external/jquery-timepicker-addon/jquery-ui-timepicker-addon.js"></script>
+
+<!-- datetimepicker -->
+<script type="text/javascript" src="../common/external/jquery-timepicker-addon/jquery-ui-timepicker-addon.js"></script>
+
+<!-- jqgrid -->
+<link rel="stylesheet" 		  href="../common/external/jqgrid-4.6.0/ui.jqgrid.css" type="text/css" media="screen" />
+
+<script 					   src="../common/external/jqgrid-4.6.0/jquery.jqGrid.js" type="text/javascript"></script>
+<script 					   src="../common/external/jqgrid-4.6.0/grid.locale-en.js" type="text/javascript"></script>
+<script 					   src="../common/external/jqgrid-4.6.0/grid.common.js" type="text/javascript"></script>
+<script 					   src="../common/external/jqgrid-4.6.0/grid.formedit.js" type="text/javascript"></script>
+<script 					   src="../common/external/jqgrid-4.6.0/jqModal.js" type="text/javascript"></script>
+<script 					   src="../common/external/jqgrid-4.6.0/jqDnR.js" type="text/javascript"></script>
+<script 					   src="../common/external/jqgrid-4.6.0/grid.filter.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+function date_check(value, colname) {
+	if (value == '') 
+	   return [false,"Please enter proper dates."];
+	else 
+	   return [true,""];
+}
+
+$(document).ready(function () {
+
+	jQuery("#crud").jqGrid({     
+   	   	url:'./model_TableViewSchedules.php',
+   datatype: "json",
+   colNames:[
+					'Event ID',
+					'Title',
+					'Desription',
+					'Location',
+   		   		   	'Start Date', 
+   		   		   	'End Date', 
+   		   		   	'All Day?'
+   		   	],
+   		   	colModel:[
+				{name:'event_id',		index:'event_id', 		editable: true,editoptions: { readonly: true}, search:true, stype:'text', width:55},
+  		   		{name:'title',			index:'title',			editable: true, search:true, stype:'text', width:70},
+  		   		{name:'description',	index:'description',	editable: true, search:true, stype:'text', width:100},
+  		   		{name:'location',		index:'location',		editable: true, search:true, stype:'text', width:50},
+   		   		{name:'start_date',		index:'start_date',		editable: true, search:true, stype:'date', width:150,
+   	   		   		editrules:{custom:true, custom_func:date_check},
+   		   	   		editoptions:
+   	   	   	   		{ 	size:20, 
+   		                dataInit:function(el){ 
+   		                	$(el).datetimepicker({dateFormat: "yy-mm-dd", timeFormat:  "HH:mm"}); 
+   		          		}
+   	   	   			}
+	   	   		},
+	   	   		{name:'end_date',		index:'end_date',		editable:true, search:true, stype:'date', width:150,
+   	   		   		editrules:{custom:true, custom_func:date_check},
+   		   	   		editoptions:
+   	   	   	   		{ 	size:20, 
+   		                dataInit:function(el){ 
+   		                	$(el).datetimepicker({dateFormat: "yy-mm-dd", timeFormat:  "HH:mm"}); 
+   		          		}
+   	   	   			}
+	   	   		},
+				{name:'all_day',		index:'all_day', 		editable: true,editoptions: { readonly: true}, search:true, stype:'text', width:55}
+	   	   		
+   		   	],
+   			rowNum:30,
+    	   	rowTotal: 50,
+    	   	rowList:[10,20,30],
+    	   	pager: '#pcrud',
+    	   	sortname: 'event_id',
+    	   	loadonce: true,
+    	    viewrecords: true,
+    	    sortorder: "desc",
+    	    editurl: 'model_EditSchedule.php',
+    	    caption:'Appointment List'
+    	     
+    	 	
+ 	});
+ 	var editOptions={ width: 400 };
+ 	jQuery("#crud").jqGrid('navGrid','#pcrud',{edit :true,add:false,del:false}, editOptions);
+ });
+ </script>
+
+
+</head>
+<body>
+	<table id="crud">
+		<tr>
+			<td />
+		</tr>
+	</table>
+	<div id="pcrud"></div>
+</body>
+</html>
